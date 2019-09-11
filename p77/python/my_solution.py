@@ -12,13 +12,14 @@ def merge_two_interval(a: Interval, b: Interval) -> Intervals:
     if a[1] < b[0]:
         return [a, b]
 
-    return [(min(a[0], b[0]), max(a[1], b[1]))]
+    return [(a[0], max(a[1], b[1]))]
 
 
 def merge(intervals: Intervals) -> Intervals:
     intervals.sort()
     result: Intervals = []
     before = intervals[0]
+
     for interval in islice(intervals, 1, None):
         *a, before = merge_two_interval(before, interval)
         result.extend(a)
